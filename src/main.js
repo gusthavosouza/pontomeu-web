@@ -4,6 +4,7 @@
 import Vue from 'vue'
 import App from './App'
 
+
 // layouts
 import InternalLayout from "./layouts/internalLayout"
 import DefaultLayout from "./layouts/defaultLayout"
