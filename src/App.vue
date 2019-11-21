@@ -28,24 +28,16 @@ computed: {
     }
   },
   created() {
-
+    // add some stuff here
   },
   updated() {
-
+    // we can add some stuff here
   },
 
   name: 'App',
 
   components: {
-
-  },
-  data: () => ({
-    drawer: null,
-    items: [
-      { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-      { title: 'Photos', icon: 'mdi-image' },
-      { title: 'About', icon: 'mdi-help-box' },
-    ]
-  })
+    // no need
+  }
 };
 </script>

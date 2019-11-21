@@ -4,6 +4,8 @@ import Home from '@/components/home'
 import Secure from '@/components/secure'
 import Login from '@/components/login'
 
+import Index from '@/pages/Index'
+
 Vue.use(Router)
 
 // const NotFound = { template: "",
@@ -13,8 +15,8 @@ Vue.use(Router)
 const customRoutes = [
     {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Index',
+    component: Index
   },
   {
     path: '/home',
