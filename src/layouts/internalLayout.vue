@@ -90,25 +90,12 @@
                             <v-col cols="12" sm="6">
                                 <v-dialog ref="dialogLunchStart" v-model="modalLunchStart" :return-value.sync="lunchStart" persistent width="290px">
                                     <template v-slot:activator="{ on }">
-                                        <v-text-field v-model="lunchStart" label="Almoço Saída" prepend-icon="mdi-timer" readonly v-on="on"></v-text-field>
+                                        <v-text-field v-model="lunchStart" label="Tempo de almoço" prepend-icon="mdi-timer" readonly v-on="on"></v-text-field>
                                     </template>
                                     <v-time-picker v-if="modalLunchStart" v-model="lunchStart" full-width>
                                         <v-spacer></v-spacer>
                                         <v-btn text color="primary" @click="modalLunchStart = false">Cancelar</v-btn>
                                         <v-btn text color="primary" @click="$refs.dialogLunchStart.save(lunchStart)">OK</v-btn>
-                                    </v-time-picker>
-                                </v-dialog>
-                            </v-col>
-
-                            <v-col cols="12" sm="6">
-                                <v-dialog ref="dialogLunchEnd" v-model="modalLunchEnd" :return-value.sync="lunchEnd" persistent width="290px">
-                                    <template v-slot:activator="{ on }">
-                                        <v-text-field v-model="lunchEnd" label="Almoço Retorno" prepend-icon="mdi-timer" readonly v-on="on"></v-text-field>
-                                    </template>
-                                    <v-time-picker v-if="modalLunchEnd" v-model="lunchEnd" full-width>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="modalLunchEnd = false">Cancelar</v-btn>
-                                        <v-btn text color="primary" @click="$refs.dialogLunchEnd.save(lunchEnd)">OK</v-btn>
                                     </v-time-picker>
                                 </v-dialog>
                             </v-col>
