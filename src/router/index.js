@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/home'
-import Secure from '@/components/secure'
+
+// pages
+import Home from '@/pages/home'
 import Login from '@/pages/login'
+
+// secure
+import Secure from '@/pages/secure/secure'
 
 import Index from '@/pages/Index'
 

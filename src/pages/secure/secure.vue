@@ -13,7 +13,7 @@
 <template>
 
 <div>
-
+    <loader-spinner ref="spinner" :show="overlay" />
 </div>
 
 </template>
@@ -21,7 +21,12 @@
 <script>
 
 export default {
-    name: 'Secure'
+    name: 'Secure',
+    mounted: function () {
+    },
+    data: () => ({
+        overlay: false
+    })
 }
 
 </script>

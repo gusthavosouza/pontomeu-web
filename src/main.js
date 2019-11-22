@@ -4,6 +4,7 @@
 import Vue from 'vue'
 import App from './App'
 import CustomLoader from "./components/customLoader"
+import CustomDrawer from "./components/customDrawer"
 
 
 // layouts
@@ -18,6 +19,7 @@ import vuetify from './plugins/vuetify';
 Vue.component("internal-layout", InternalLayout);
 Vue.component("default-layout", DefaultLayout);
 Vue.component('loader-spinner', CustomLoader);
+Vue.component('custom-drawer', CustomDrawer);
 
 Vue.config.productionTip = false
 
