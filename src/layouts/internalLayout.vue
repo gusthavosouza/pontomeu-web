@@ -59,7 +59,7 @@
                         <v-container>
                             <v-row>
                                 <v-col cols="12">
-                                    <v-text-field label="Nome da empresa*" required :rules="nameRules"></v-text-field>
+                                    <v-text-field label="Nome da empresa*" v-model="name" required :rules="nameRules"></v-text-field>
                                 </v-col>
 
                                 <v-col cols="12" sm="6">
@@ -105,6 +105,11 @@
                                     <v-switch v-model="calculateLunch" class="ma-2" label="Calcular horário de almoço"></v-switch>
                                 </v-col>
 
+                                <v-col cols="12" v-if="msg">
+                                    <span class="text-red"> {{ msg }} </span>
+                                </v-col>
+
+
                             </v-row>
                         </v-container>
                         <small>* Campos obrigatórios</small>
@@ -132,6 +137,11 @@ import {
 }
 from '@/services/user'
 
+import {
+    company
+}
+from '@/services/company'
+
 export default {
 
     data: () => ({
@@ -145,6 +155,8 @@ export default {
         endRules: [
             v => !!v || 'Por favor informe o horário de saída'
         ],
+        name: '',
+        msg: '',
         drawer: null,
         items: null,
         error: false,
@@ -154,7 +166,6 @@ export default {
         end: null,
         modalStart: false,
         modalEnd: false,
-
         modalLunch: null,
         lunchStart: null,
         calculateLunch: false
@@ -168,17 +179,53 @@ export default {
         validate() {
             if (this.$refs.form.validate()) { // send the form if is valid
                 this.overlay = true;
-                this.makeLogin();
-                // this.$refs.spinner.showOverlay();
+                this.postNewCompany();
             }
+        },
+
+        postNewCompany() {
+          var companyModel = {
+            userId: 0,
+            name: this.name,
+            start: this.formatTimeToMinutes(this.start),
+            end: this.formatTimeToMinutes(this.end),
+            lunch: this.formatTimeToMinutes(this.lunchStart),
+            calculateLunch: this.calculateLunch
+          };
+          company.post(companyModel).then(response => {
+            this.overlay = false;
+            this.dialog = false;
+
+            if (this.items) {
+              this.items.push(response.data);
+            } else {
+              this.items = [];
+              this.items.push(response.data);
+            }
+          }).catch(() => {
+            this.overlay = false;
+            this.msg = 'Ocorreu um erro ao processar sua requisição. Tente novamente em alguns instantes.';
+          });
         },
 
         loadCompanies() {
           user.getCompanies().then(response => {
-              this.items = response.data
+              this.items = response.data.results.map((item) => {
+                return { title: (item.id + ' - ' + item.name), icon: 'mdi-desktop-tower' }
+              });
           }).catch(() => {
               this.error = true;
           });
+        },
+
+        formatTimeToMinutes(timeStr) {
+          if (timeStr) {
+            var splitedTime = timeStr.split(':');
+            if (splitedTime.length == 2) {
+              return (parseInt(splitedTime[0]) * 60) + parseInt(splitedTime[1]);
+            }
+          }
+          return 0;
         }
     }
 }
