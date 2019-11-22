@@ -12,7 +12,7 @@
 
 <script>
 
-import Api from "@/api/Api"
+import { user } from "@/services/user"
 
 export default {
   data: () => ({
@@ -20,13 +20,12 @@ export default {
     user: null
   }),
   created () {
-  Api.getUser(5)
+  user.getUser()
     .then(response => {
       this.user = response.data,
       this.loading = false
     })
     .catch(() => {
-      alert("ERROR");
       this.loading = false;
     });
   }

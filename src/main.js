@@ -3,6 +3,7 @@
 // components
 import Vue from 'vue'
 import App from './App'
+import CustomLoader from "./components/customLoader"
 
 
 // layouts
@@ -16,6 +17,7 @@ import vuetify from './plugins/vuetify';
 
 Vue.component("internal-layout", InternalLayout);
 Vue.component("default-layout", DefaultLayout);
+Vue.component('loader-spinner', CustomLoader);
 
 Vue.config.productionTip = false
 

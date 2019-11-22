@@ -1,14 +1,20 @@
+
+
 <template>
-  <div>
+
+<div>
     <Navigation> </Navigation>
     <div>
-      <router-link to="/secure">Go to secure page</router-link>
+        <router-link to="/secure">Go to secure page</router-link>
     </div>
-  </div>
+</div>
+
 </template>
 
 <script>
+
 export default {
-  name: 'Home'
+    name: 'Home'
 }
+
 </script>
