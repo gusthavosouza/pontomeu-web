@@ -19,6 +19,7 @@
                             <v-toolbar-title>Pontomeu</v-toolbar-title>
                         </v-toolbar>
                         <v-card-text>
+
                             <v-form ref="form" v-model="valid" lazy-validation>
                                 <v-text-field label="Email" :rules="emailRules" name="email" v-model="loginModel.email" type="text" required></v-text-field>
                                 <v-text-field id="password" label="Senha" :rules="passwordRules" v-model="loginModel.password" name="password" type="password" required></v-text-field>

@@ -26,7 +26,8 @@ export default {
     },
     data: () => ({
         overlay: false
-    })
+    }),
+    
 }
 
 </script>

@@ -52,66 +52,69 @@
         <v-dialog v-model="dialog" persistent max-width="600px">
             <v-card>
                 <v-card-title>
-                    <span class="headline">Empresa</span>
+                    <span class="headline">Cadastrar Empresa</span>
                 </v-card-title>
                 <v-card-text>
-                    <v-container>
-                        <v-row>
-                            <v-col cols="12">
-                                <v-text-field label="Nome" required></v-text-field>
-                            </v-col>
+                    <v-form ref="form" v-model="valid" lazy-validation>
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-text-field label="Nome da empresa*" required :rules="nameRules"></v-text-field>
+                                </v-col>
 
-                            <v-col cols="12" sm="6">
-                                <v-dialog ref="dialogStart" v-model="modalStart" :return-value.sync="start" persistent width="290px">
-                                    <template v-slot:activator="{ on }">
-                                        <v-text-field v-model="start" label="Início" prepend-icon="mdi-timer" readonly v-on="on"></v-text-field>
-                                    </template>
-                                    <v-time-picker v-if="modalStart" v-model="start" full-width>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="modalStart = false">Cancelar</v-btn>
-                                        <v-btn text color="primary" @click="$refs.dialogStart.save(start)">OK</v-btn>
-                                    </v-time-picker>
-                                </v-dialog>
-                            </v-col>
+                                <v-col cols="12" sm="6">
+                                    <v-dialog ref="dialogStart" v-model="modalStart" :return-value.sync="start" persistent width="290px">
+                                        <template v-slot:activator="{ on }">
+                                            <v-text-field v-model="start" label="Entrada *" prepend-icon="mdi-timer" readonly v-on="on" required :rules="startRules"></v-text-field>
+                                        </template>
+                                        <v-time-picker v-if="modalStart" v-model="start" full-width>
+                                            <v-spacer></v-spacer>
+                                            <v-btn text color="primary" @click="modalStart = false">Cancelar</v-btn>
+                                            <v-btn text color="primary" @click="$refs.dialogStart.save(start)">OK</v-btn>
+                                        </v-time-picker>
+                                    </v-dialog>
+                                </v-col>
 
-                            <v-col cols="12" sm="6">
-                                <v-dialog ref="dialogEnd" v-model="modalEnd" :return-value.sync="end" persistent width="290px">
-                                    <template v-slot:activator="{ on }">
-                                        <v-text-field v-model="end" label="Fim" prepend-icon="mdi-timer" readonly v-on="on"></v-text-field>
-                                    </template>
-                                    <v-time-picker v-if="modalEnd" v-model="end" full-width>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="modalEnd = false">Cancelar</v-btn>
-                                        <v-btn text color="primary" @click="$refs.dialogEnd.save(end)">OK</v-btn>
-                                    </v-time-picker>
-                                </v-dialog>
-                            </v-col>
+                                <v-col cols="12" sm="6">
+                                    <v-dialog ref="dialogEnd" v-model="modalEnd" :return-value.sync="end" persistent width="290px">
+                                        <template v-slot:activator="{ on }">
+                                            <v-text-field v-model="end" label="Saída *" prepend-icon="mdi-timer" readonly v-on="on" required :rules="endRules"></v-text-field>
+                                        </template>
+                                        <v-time-picker v-if="modalEnd" v-model="end" full-width>
+                                            <v-spacer></v-spacer>
+                                            <v-btn text color="primary" @click="modalEnd = false">Cancelar</v-btn>
+                                            <v-btn text color="primary" @click="$refs.dialogEnd.save(end)">OK</v-btn>
+                                        </v-time-picker>
+                                    </v-dialog>
+                                </v-col>
 
-                            <v-col cols="12" sm="6">
-                                <v-dialog ref="dialogLunchStart" v-model="modalLunchStart" :return-value.sync="lunchStart" persistent width="290px">
-                                    <template v-slot:activator="{ on }">
-                                        <v-text-field v-model="lunchStart" label="Tempo de almoço" prepend-icon="mdi-timer" readonly v-on="on"></v-text-field>
-                                    </template>
-                                    <v-time-picker v-if="modalLunchStart" v-model="lunchStart" full-width>
-                                        <v-spacer></v-spacer>
-                                        <v-btn text color="primary" @click="modalLunchStart = false">Cancelar</v-btn>
-                                        <v-btn text color="primary" @click="$refs.dialogLunchStart.save(lunchStart)">OK</v-btn>
-                                    </v-time-picker>
-                                </v-dialog>
-                            </v-col>
+                                <v-col cols="12" sm="6">
+                                    <v-dialog ref="dialogLunch" v-model="modalLunch" :return-value.sync="lunchStart" persistent width="290px">
+                                        <template v-slot:activator="{ on }">
+                                            <v-text-field v-model="lunchStart" label="Tempo de almoço" prepend-icon="mdi-timer" readonly v-on="on"></v-text-field>
+                                        </template>
+                                        <v-time-picker v-if="modalLunch" v-model="lunchStart" full-width format="24hr">
+                                            <v-spacer></v-spacer>
+                                            <v-btn text color="primary" @click="modalLunch = false">Cancelar</v-btn>
+                                            <v-btn text color="primary" @click="$refs.dialogLunch.save(lunchStart)">OK</v-btn>
+                                        </v-time-picker>
+                                    </v-dialog>
+                                </v-col>
 
-                            <v-col cols="12">
-                                <v-text-field label="Email*" required></v-text-field>
-                            </v-col>
+                                <v-col cols="12">
+                                    <v-switch v-model="calculateLunch" class="ma-2" label="Calcular horário de almoço"></v-switch>
+                                </v-col>
 
-                        </v-row>
-                    </v-container>
-                    <small>*indicates required field</small>
+                            </v-row>
+                        </v-container>
+                        <small>* Campos obrigatórios</small>
+                    </v-form>
                 </v-card-text>
+
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" text @click="dialog = false">Fechar</v-btn>
-                    <v-btn color="blue darken-1" text @click="dialog = false">Salvar</v-btn>
+                    <v-btn color="blue darken-1" text @click="validate">Salvar</v-btn>
                 </v-card-actions>
             </v-card>
 
@@ -132,30 +135,51 @@ from '@/services/user'
 export default {
 
     data: () => ({
+        nameRules: [
+            v => !!v || 'Por favor informe o nome da empresa'
+        ],
+        startRules: [
+            v => !!v || 'Por favor informe o horário de entrada'
+        ],
+
+        endRules: [
+            v => !!v || 'Por favor informe o horário de saída'
+        ],
         drawer: null,
         items: null,
         error: false,
         dialog: false,
-
+        valid: true,
         start: null,
         end: null,
-
-        lunchStart: null,
-        lunchEnd: null,
-
         modalStart: false,
         modalEnd: false,
 
-        modalLunchStart: false,
-        modalLunchEnd: false
+        modalLunch: null,
+        lunchStart: null,
+        calculateLunch: false
     }),
 
     mounted() {
-        user.getCompanies().then(response => {
-            this.items = response.data
-        }).catch(() => {
-            this.error = true;
-        });
+      this.loadCompanies();
+    },
+
+    methods: {
+        validate() {
+            if (this.$refs.form.validate()) { // send the form if is valid
+                this.overlay = true;
+                this.makeLogin();
+                // this.$refs.spinner.showOverlay();
+            }
+        },
+
+        loadCompanies() {
+          user.getCompanies().then(response => {
+              this.items = response.data
+          }).catch(() => {
+              this.error = true;
+          });
+        }
     }
 }
 
