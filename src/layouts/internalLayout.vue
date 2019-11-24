@@ -14,27 +14,26 @@
                             <v-icon left>mdi-plus</v-icon> Nova empresa</v-btn>
                     </div>
                 </v-list-item-title>
-
             </v-list-item-content>
         </v-list-item>
 
         <v-divider></v-divider>
 
         <v-list dense>
-            <v-list-item v-for="item in items" :key="item.title" link>
-                <v-list-item-icon>
-                    <v-icon>{{ item.icon }}</v-icon>
-                </v-list-item-icon>
+              <v-list-item v-for="item in items" :key="item.title" link @click="viewCompany(item)">
+                  <v-list-item-icon>
+                      <v-icon>{{ item.icon }}</v-icon>
+                  </v-list-item-icon>
 
-                <v-list-item-content>
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                </v-list-item-content>
-            </v-list-item>
+                  <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                  </v-list-item-content>
+              </v-list-item>
         </v-list>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left>
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click.stop="drawer=! drawer "></v-app-bar-nav-icon>
         <v-toolbar-title>Pontomeu</v-toolbar-title>
     </v-app-bar>
 
@@ -49,67 +48,65 @@
     </v-footer>
 
     <v-row justify="center">
-        <v-dialog v-model="dialog" persistent max-width="600px">
+        <v-dialog v-model="dialog " persistent max-width="600px ">
             <v-card>
                 <v-card-title>
-                    <span class="headline">Cadastrar Empresa</span>
+                    <span class="headline ">Cadastrar Empresa</span>
                 </v-card-title>
                 <v-card-text>
-                    <v-form ref="form" v-model="valid" lazy-validation>
+                    <v-form ref="form " v-model="valid " lazy-validation>
                         <v-container>
                             <v-row>
-                                <v-col cols="12">
-                                    <v-text-field label="Nome da empresa*" v-model="name" required :rules="nameRules"></v-text-field>
+                                <v-col cols="12 ">
+                                    <v-text-field label="Nome da empresa* " v-model="name " required :rules="nameRules "></v-text-field>
                                 </v-col>
 
-                                <v-col cols="12" sm="6">
-                                    <v-dialog ref="dialogStart" v-model="modalStart" :return-value.sync="start" persistent width="290px">
-                                        <template v-slot:activator="{ on }">
-                                            <v-text-field v-model="start" label="Entrada *" prepend-icon="mdi-timer" readonly v-on="on" required :rules="startRules"></v-text-field>
+                                <v-col cols="12 " sm="6 ">
+                                    <v-dialog ref="dialogStart " v-model="modalStart " :return-value.sync="start " persistent width="290px ">
+                                        <template v-slot:activator="{ on } ">
+                                            <v-text-field v-model="start " label="Entrada * " prepend-icon="mdi-timer " readonly v-on="on " required :rules="startRules "></v-text-field>
                                         </template>
-                                        <v-time-picker v-if="modalStart" v-model="start" full-width>
+                                        <v-time-picker v-if="modalStart " v-model="start " full-width>
                                             <v-spacer></v-spacer>
-                                            <v-btn text color="primary" @click="modalStart = false">Cancelar</v-btn>
-                                            <v-btn text color="primary" @click="$refs.dialogStart.save(start)">OK</v-btn>
+                                            <v-btn text color="primary " @click="modalStart=false">Cancelar</v-btn>
+                                            <v-btn text color="primary " @click="$refs.dialogStart.save(start) ">OK</v-btn>
                                         </v-time-picker>
                                     </v-dialog>
                                 </v-col>
 
-                                <v-col cols="12" sm="6">
-                                    <v-dialog ref="dialogEnd" v-model="modalEnd" :return-value.sync="end" persistent width="290px">
-                                        <template v-slot:activator="{ on }">
-                                            <v-text-field v-model="end" label="Saída *" prepend-icon="mdi-timer" readonly v-on="on" required :rules="endRules"></v-text-field>
+                                <v-col cols="12 " sm="6 ">
+                                    <v-dialog ref="dialogEnd " v-model="modalEnd " :return-value.sync="end " persistent width="290px ">
+                                        <template v-slot:activator="{ on } ">
+                                            <v-text-field v-model="end " label="Saída * " prepend-icon="mdi-timer " readonly v-on="on " required :rules="endRules "></v-text-field>
                                         </template>
-                                        <v-time-picker v-if="modalEnd" v-model="end" full-width>
+                                        <v-time-picker v-if="modalEnd " v-model="end " full-width>
                                             <v-spacer></v-spacer>
-                                            <v-btn text color="primary" @click="modalEnd = false">Cancelar</v-btn>
-                                            <v-btn text color="primary" @click="$refs.dialogEnd.save(end)">OK</v-btn>
+                                            <v-btn text color="primary " @click="modalEnd=false ">Cancelar</v-btn>
+                                            <v-btn text color="primary " @click="$refs.dialogEnd.save(end) ">OK</v-btn>
                                         </v-time-picker>
                                     </v-dialog>
                                 </v-col>
 
-                                <v-col cols="12" sm="6">
-                                    <v-dialog ref="dialogLunch" v-model="modalLunch" :return-value.sync="lunchStart" persistent width="290px">
-                                        <template v-slot:activator="{ on }">
-                                            <v-text-field v-model="lunchStart" label="Tempo de almoço" prepend-icon="mdi-timer" readonly v-on="on"></v-text-field>
+                                <v-col cols="12 " sm="6 ">
+                                    <v-dialog ref="dialogLunch " v-model="modalLunch " :return-value.sync="lunchStart " persistent width="290px ">
+                                        <template v-slot:activator="{ on } ">
+                                            <v-text-field v-model="lunchStart " label="Tempo de almoço " prepend-icon="mdi-timer " readonly v-on="on "></v-text-field>
                                         </template>
-                                        <v-time-picker v-if="modalLunch" v-model="lunchStart" full-width format="24hr">
+                                        <v-time-picker v-if="modalLunch " v-model="lunchStart " full-width format="24hr ">
                                             <v-spacer></v-spacer>
-                                            <v-btn text color="primary" @click="modalLunch = false">Cancelar</v-btn>
-                                            <v-btn text color="primary" @click="$refs.dialogLunch.save(lunchStart)">OK</v-btn>
+                                            <v-btn text color="primary " @click="modalLunch=false">Cancelar</v-btn>
+                                            <v-btn text color="primary " @click="$refs.dialogLunch.save(lunchStart) ">OK</v-btn>
                                         </v-time-picker>
                                     </v-dialog>
                                 </v-col>
 
-                                <v-col cols="12">
-                                    <v-switch v-model="calculateLunch" class="ma-2" label="Calcular horário de almoço"></v-switch>
+                                <v-col cols="12 ">
+                                    <v-switch v-model="calculateLunch " class="ma-2 " label="Calcular horário de almoço "></v-switch>
                                 </v-col>
 
-                                <v-col cols="12" v-if="msg">
-                                    <span class="text-red"> {{ msg }} </span>
+                                <v-col cols="12 " v-if="msg ">
+                                    <span class="text-red "> {{ msg }} </span>
                                 </v-col>
-
-
                             </v-row>
                         </v-container>
                         <small>* Campos obrigatórios</small>
@@ -118,8 +115,8 @@
 
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="dialog = false">Fechar</v-btn>
-                    <v-btn color="blue darken-1" text @click="validate">Salvar</v-btn>
+                    <v-btn color="blue darken-1 " text @click="dialog=false">Fechar</v-btn>
+                    <v-btn color="blue darken-1 " text @click="validate ">Salvar</v-btn>
                 </v-card-actions>
             </v-card>
 
@@ -168,65 +165,81 @@ export default {
         modalEnd: false,
         modalLunch: null,
         lunchStart: null,
-        calculateLunch: false
+        calculateLunch: false,
+        id: 0
     }),
 
     mounted() {
-      this.loadCompanies();
+        this.loadCompanies();
     },
 
     methods: {
         validate() {
-            if (this.$refs.form.validate()) { // send the form if is valid
-                this.overlay = true;
-                this.postNewCompany();
+                if (this.$refs.form.validate()) { // send the form if is valid
+                    this.overlay = true;
+                    this.postNewCompany();
+                }
+            },
+
+            viewCompany(item) {
+                this.id = item.id;
+                this.$router.push('/secure/' + this.id);
+            },
+
+            postNewCompany() {
+                var companyModel = {
+                    userId: 0,
+                    name: this.name,
+                    start: this.formatTimeToMinutes(this.start),
+                    end: this.formatTimeToMinutes(this.end),
+                    lunch: this.formatTimeToMinutes(this.lunchStart),
+                    calculateLunch: this.calculateLunch
+                };
+                company.post(companyModel).then(response => {
+                    this.overlay = false;
+                    this.dialog = false;
+
+                    var drawerItem = {
+                        id: response.data.id,
+                        title: (response.data.id + ' - ' + companyModel.name),
+                        icon: 'mdi-desktop-tower'
+                    };
+
+                    if (!this.items) {
+                        this.items = [];
+                    }
+
+                    this.items.push(drawerItem);
+
+                }).catch(() => {
+                    this.overlay = false;
+                    this.msg = 'Ocorreu um erro ao processar sua requisição. Tente novamente em alguns instantes.';
+                });
+            },
+
+            loadCompanies() {
+                user.getCompanies().then(response => {
+                    this.items = response.data.results.map((item) => {
+                        return {
+                            id: item.id,
+                            title: (item.id + ' - ' + item.name),
+                            icon: 'mdi-desktop-tower'
+                        }
+                    });
+                }).catch(() => {
+                    this.error = true;
+                });
+            },
+
+            formatTimeToMinutes(timeStr) {
+                if (timeStr) {
+                    var splitedTime = timeStr.split(':');
+                    if (splitedTime.length == 2) {
+                        return (parseInt(splitedTime[0]) * 60) + parseInt(splitedTime[1]);
+                    }
+                }
+                return 0;
             }
-        },
-
-        postNewCompany() {
-          var companyModel = {
-            userId: 0,
-            name: this.name,
-            start: this.formatTimeToMinutes(this.start),
-            end: this.formatTimeToMinutes(this.end),
-            lunch: this.formatTimeToMinutes(this.lunchStart),
-            calculateLunch: this.calculateLunch
-          };
-          company.post(companyModel).then(response => {
-            this.overlay = false;
-            this.dialog = false;
-
-            if (this.items) {
-              this.items.push(response.data);
-            } else {
-              this.items = [];
-              this.items.push(response.data);
-            }
-          }).catch(() => {
-            this.overlay = false;
-            this.msg = 'Ocorreu um erro ao processar sua requisição. Tente novamente em alguns instantes.';
-          });
-        },
-
-        loadCompanies() {
-          user.getCompanies().then(response => {
-              this.items = response.data.results.map((item) => {
-                return { title: (item.id + ' - ' + item.name), icon: 'mdi-desktop-tower' }
-              });
-          }).catch(() => {
-              this.error = true;
-          });
-        },
-
-        formatTimeToMinutes(timeStr) {
-          if (timeStr) {
-            var splitedTime = timeStr.split(':');
-            if (splitedTime.length == 2) {
-              return (parseInt(splitedTime[0]) * 60) + parseInt(splitedTime[1]);
-            }
-          }
-          return 0;
-        }
     }
 }
 

@@ -7,14 +7,12 @@ import Login from '@/pages/login'
 
 // secure
 import Secure from '@/pages/secure/secure'
+import SecureList from '@/pages/secure/secureList'
 
 import Index from '@/pages/Index'
 
 Vue.use(Router)
 
-// const NotFound = { template: "",
-//     created: function() { window.location.href = "/static/404.html"; }
-// }
 
 const customRoutes = [
     {
@@ -32,6 +30,7 @@ const customRoutes = [
     name: 'Login',
     component: Login
   },
+
   {
     path: '/secure',
     name: 'Secure',
@@ -41,7 +40,18 @@ const customRoutes = [
       internal: true,
       layout: "internal"
     }
+  },
+  {
+    path: '/secure/:id',
+    name: 'SecureList',
+    component: SecureList,
+    meta: {
+      requiresAuth: true,
+      internal: true,
+      layout: "internal"
+    }
   }
+
   // { path: '/static/404', name: 'NotFound', component: NotFound },
   // { path: '*', name: 'NotFound', component: NotFound }
 ];
