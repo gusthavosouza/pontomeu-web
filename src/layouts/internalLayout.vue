@@ -39,7 +39,7 @@
 
     <v-content>
         <v-container fluid>
-            <router-view></router-view>
+            <router-view />
         </v-container>
     </v-content>
 
@@ -47,7 +47,6 @@
         <span class="center">Pontomeu &copy; 2019</span>
     </v-footer>
 
-    <v-row justify="center">
         <v-dialog v-model="dialog " persistent max-width="600px ">
             <v-card>
                 <v-card-title>
@@ -121,7 +120,6 @@
             </v-card>
 
         </v-dialog>
-    </v-row>
 
 </v-app>
 
