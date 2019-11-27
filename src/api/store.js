@@ -3,9 +3,11 @@ export const store = {
     _email: '',
     _token: '',
     _userId: 0,
+    _user: null,
 
     isLogged () {
-      return this._token
+      var currentToken = this.getToken();
+      return currentToken !== null && currentToken !== '';
     },
 
     getUserId() {
@@ -29,6 +31,17 @@ export const store = {
       return this._email || localStorage.getItem('email')
     },
 
+    getUser() {
+      return this._user || localStorage.getItem('user');
+    },
+
+    setUser(userModel) {
+      if (userModel) {
+        this._user = userModel;
+        localStorage.setItem('user', JSON.stringify(userModel));
+      }
+      return this._user;
+    },
     setToken (tokenModel) {
       if (tokenModel) {
         this._token = tokenModel.token;
@@ -39,10 +52,16 @@ export const store = {
       } else {
         localStorage.setItem('user-token', null);
       }
-
     },
     getToken () {
       return this._token || localStorage.getItem('token');
+    },
+
+    logout() {
+      localStorage.setItem('user', null);
+      localStorage.setItem('token', null);
+      localStorage.setItem('userId', null);
+      localStorage.setItem('user-token', null);
     },
 
     getTokenModel() {

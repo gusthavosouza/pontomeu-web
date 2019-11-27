@@ -10,9 +10,9 @@ import Secure from '@/pages/secure/secure'
 import SecureList from '@/pages/secure/secureList'
 
 import Index from '@/pages/Index'
+import { store } from '@/api/store'
 
 Vue.use(Router)
-
 
 const customRoutes = [
     {
@@ -62,13 +62,15 @@ var router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  // if (to.matched.some(record => record.meta.requiresAuth)) {
-  //   next({name: 'Login'});
-  // } else {
-  //   next();
-  // }
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.isLogged()) {
+      next( { name: 'Login' } );
+      return;
+    }
+  }
+  next();
 
-next();
+// next();
 
   // console.log(to)
   // console.log(from)
