@@ -1,4 +1,4 @@
-export var companyModel = {
+export var CompanyModel = {
   userId: null,
   name: '',
   start: 0,

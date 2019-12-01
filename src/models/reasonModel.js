@@ -1,4 +1,4 @@
-export var reasonModel = {
+export var ReasonModel = {
   id: null,
   userId: null,
   name: '',

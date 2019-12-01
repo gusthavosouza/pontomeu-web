@@ -15,16 +15,36 @@
 <div>
     <loader-spinner ref="spinner" :show="overlay" />
 
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="6" md="4">
+            <v-input> De </v-input>
+            <v-text-field v-model="fields.dateStart.value" placeholder="dd/MM/yyyy" prepend-icon="mdi-calendar" readonly @click="saveRef(fields.dateStart); showModalDate()" />
+        </v-col>
+
+        <v-col cols="12" sm="6" md="4">
+            <v-input> Até </v-input>
+            <v-text-field v-model="fields.dateStart.value" placeholder="dd/MM/yyyy" prepend-icon="mdi-calendar" readonly @click="saveRef(fields.dateStart); showModalDate()" />
+        </v-col>
+
+          <v-col cols="12" sm="6" md="4" >
+            <v-input />
+            <v-btn class="mr-4"> Buscar </v-btn>
+          </v-col>
+      </v-row>
+    </v-container>
+
+    <v-spacer />
+
     <div v-if="items">
-        <v-list shaped>
-            <v-subheader>REPORTS</v-subheader>
+        <v-list>
             <v-list-item-group v-model="item" color="primary">
                 <v-list-item v-for="(item, i) in items" :key="i">
                     <v-list-item-icon>
-                        <v-icon v-text="item.icon"></v-icon>
+                        <v-icon></v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        <v-list-item-title v-text="item.text"></v-list-item-title>
+                        <v-list-item-title v-text="item.id"></v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list-item-group>
@@ -55,61 +75,41 @@
                   <v-col cols="12">
                     <span> Entrada * </span>
                   </v-col>
-                  <!-- MARK: DATA START -->
+
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="fields.dateStart.value" label="Dia" prepend-icon="mdi-calendar" readonly required :rules="startRules" @click="saveRef(fields.dateStart)" />
+                    <v-text-field v-model="fields.dateStart.value" label="Dia" prepend-icon="mdi-calendar" readonly @click="saveRef(fields.dateStart); showModalDate()" />
                   </v-col>
 
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="fields.timeStart.value" label="Dia" prepend-icon="mdi-calendar" readonly required :rules="startRules" @click="saveRef(fields.timeStart)" />
+                    <v-text-field v-model="fields.timeStart.value" label="Hora" prepend-icon="mdi-timer" readonly @click="saveRef(fields.timeStart); showModalTime();" />
                   </v-col>
-                  <!-- MARK: END DATA START -->
 
                   <v-col cols="12">
-                    <span> Almoço / Janta * </span>
-                  </v-col>
-
-                  <!-- MARK: LUNCH START -->
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="fields.lunchStartTime.value"  label="Saída" prepend-icon="mdi-timer" readonly required :rules="startRules" @click="saveRef(fields.lunchStartTime)" />
+                    <span> Almoço ou Janta * </span>
                   </v-col>
 
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="fields.lunchEndTime.value"  label="Saída" prepend-icon="mdi-timer" readonly required :rules="startRules" @click="saveRef(fields.lunchEndTime)" />
+                    <v-text-field v-model="fields.lunchStartTime.value" label="Horário Saída" prepend-icon="mdi-timer" readonly @click="saveRef(fields.lunchStartTime); showModalTime();" />
                   </v-col>
 
-                  <!-- MARK: END LUNCH -->
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field v-model="fields.lunchEndTime.value" label="Horário Retorno" prepend-icon="mdi-timer" readonly @click="saveRef(fields.lunchEndTime); showModalTime();" />
+                  </v-col>
+
                   <v-col cols="12">
                     <span> Saída * </span>
                   </v-col>
-                  <!-- MARK: DATA START -->
+
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="fields.dateEnd.value" label="Dia" prepend-icon="mdi-calendar" readonly required :rules="startRules" @click="saveRef(fields.dateEnd)" />
+                    <v-text-field v-model="fields.dateEnd.value" label="Dia" prepend-icon="mdi-calendar" readonly @click="saveRef(fields.dateEnd); showModalDate();" />
                   </v-col>
 
                   <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="fields.timeEnd.value" label="Saída" prepend-icon="mdi-timer" readonly required :rules="startRules" @click="saveRef(fields.timeEnd)" />
+                    <v-text-field v-model="fields.timeEnd.value" label="Hora" prepend-icon="mdi-timer" readonly @click="saveRef(fields.timeEnd); showModalTime();" />
                   </v-col>
-                  <!-- MARK: END DATA START -->
+
                 </v-row>
             </v-container>
-
-            <v-dialog ref="dialogRefDate" v-model="modalStart" :return-value.sync="dateStart" persistent width="290px">
-              <v-date-picker v-model="dateStart" scrollable>
-                <v-spacer />
-                <v-btn text color="primary" @click="modalStart = false">Cancelar</v-btn>
-                <v-btn text color="primary" @click="$refs.dialogStart.save(dateStart)">Salvar</v-btn>
-              </v-date-picker>
-            </v-dialog>
-
-            <v-dialog ref="dialogRef" v-model="modalRef" :return-value.sync="dateRef" persistent width="290px">
-                <v-time-picker v-model="dateRef" full-width>
-                    <v-spacer></v-spacer>
-                    <v-btn text color="primary" @click="modalRef=false">Cancelar</v-btn>
-                    <v-btn text color="primary" @click="$refs.dialogRef.save(dateRef); saveVal(dateRef)">OK</v-btn>
-                </v-time-picker>
-            </v-dialog>
-
           </v-form>
         </v-card-text>
 
@@ -122,16 +122,30 @@
       </v-card>
 
     </v-dialog>
+
+    <v-dialog ref="dialogRefDate" v-model="modalDate" :return-value.sync="dateRef" persistent width="290px">
+      <v-date-picker v-model="dateRef" scrollable>
+        <v-spacer />
+        <v-btn text color="primary" @click="modalDate = false">Cancelar</v-btn>
+        <v-btn text color="primary" @click="$refs.dialogRefDate.save(dateRef); saveVal(dateRef)">Salvar</v-btn>
+      </v-date-picker>
+    </v-dialog>
+
+    <v-dialog ref="dialogRef" v-model="modalTime" :return-value.sync="timeRef" persistent width="290px">
+        <v-time-picker v-model="timeRef" full-width>
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="modalTime=false">Cancelar</v-btn>
+            <v-btn text color="primary" @click="$refs.dialogRef.save(timeRef); saveVal(timeRef)">OK</v-btn>
+        </v-time-picker>
+    </v-dialog>
 </div>
 
 </template>
 
 <script>
 
-import {
-    logdaywork
-}
-from '@/services/logdaywork'
+import { logdaywork } from '@/services/logdaywork'
+import { LogDayWorkModel } from '@/models/LogDayWorkModel'
 
 export default {
     name: 'SecureList',
@@ -149,30 +163,32 @@ export default {
         overlay: false,
         valid: true,
         items: null,
+        item: null,
         error: false,
         userModel: null,
         dialog: false,
-        modalStart: false,
-        modalRef: false,
-        modelRef: null,
-        timeRef: null,
-        dateStartTime: null,
-        modalStartTime: false,
-        dateStart: null,
-        dateRef: null,
-        ref: null,
 
+        modalDate: false,
+        modalTime:false,
+        dateRef: null,
+        timeRef: null,
+        ref: null,
+        logDayWorkModel: LogDayWorkModel,
         fields: {
-          dateStart: {value: ''},
-          timeStart: {value: ''},
+          dateStart:      {value: ''},
+          timeStart:      {value: ''},
           lunchStartTime: {value: ''},
-          lunchEndTime: {value: ''},
-          dateEnd: {value: ''},
-          timeEnd: {value : ''}
+          lunchEndTime:   {value: ''},
+          dateEnd:        {value: ''},
+          timeEnd:        {value : ''}
         },
 
-        startRules: [
-            v => !!v || 'Por favor informe o horário de entrada'
+        dateRules: [
+            v => !!v || 'Por favor informe o dia'
+        ],
+
+        timeRules: [
+            v => !!v || 'Por favor informe o horário'
         ],
     }),
     methods: {
@@ -182,21 +198,43 @@ export default {
           // this.ref.$emit('value', val);
         },
 
+        showModalDate() {
+          this.modalDate = true;
+        },
+
+        showModalTime() {
+          this.modalTime = true;
+        },
+
         saveRef(model) {
-          this.modalRef = true;
           this.ref = model;
         },
         computedValue(ref) {
           return ref && ref.value ? ref.value : '';
         },
         validate() {
-          alert(this.lunchStartTime);
+          if (this.$refs.form.validate()) {
+            this.makeRequestSendDayTime();
+          }
+        },
+        makeRequestSendDayTime() {
+          this.overlay = true;
+          this.logDayWorkModel.companyId = this.$route.params.id;
+          logdaywork.post(this.logDayWorkModel).then(response => {
+              this.overlay = false;
+              if (!this.items) {
+                this.items = [];
+              }
+              this.items.push(response.data);
+          }).catch(() => {
+              this.overlay = false;
+          });
         },
         loadWorkDay() {
             this.overlay = true;
             logdaywork.loadDayWork(this.$route.params.id).then(response => {
                 this.overlay = false
-                if (response.code == 200) {
+                if (response.status == 200) {
                     this.items = response.data.results;
                 }
 

@@ -1,9 +1,7 @@
-import { reasonModel } from '@reasonModel'
-
-export var logDayWorkModel = {
+export var LogDayWorkModel = {
   id: null,
   companyId: null,
-  reason: reasonModel,
+  reason: null,
   start: null,
   lunchStart: null,
   lunchEnd: null,

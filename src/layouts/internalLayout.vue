@@ -178,17 +178,11 @@
 
 <script>
 
-import {
-    user
-}
-from '@/services/user'
+import { user } from '@/services/user'
 
-import {
-    company
-}
-from '@/services/company'
+import { company } from '@/services/company'
 
-import { companyModel } from '@/models/companyModel'
+import { CompanyModel } from '@/models/CompanyModel'
 
 export default {
 
@@ -214,7 +208,7 @@ export default {
         modalLunch: null,
         id: null,
         userModel: null,
-        companyModel: companyModel
+        companyModel: CompanyModel
     }),
 
     mounted() {
@@ -245,13 +239,13 @@ export default {
               this.companyModel.end = this.formatTimeToMinutes(this.companyModel.endAsString);
               this.companyModel.lunch = this.formatTimeToMinutes(this.companyModel.lunchAsString);
 
-              company.post(companyModel).then(response => {
+              company.post(this.companyModel).then(response => {
                   this.overlay = false;
                   this.dialog = false;
 
                   var drawerItem = {
                       id: response.data.id,
-                      title: (response.data.id + ' - ' + companyModel.name),
+                      title: (response.data.id + ' - ' + this.companyModel.name),
                       icon: 'mdi-desktop-tower'
                   };
 
